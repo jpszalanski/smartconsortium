@@ -1,4 +1,4 @@
-# Smart Consortium Calculators (Banrisul)
+# Smart Consortium Calculators
 
 Este repositório contém um conjunto de ferramentas web desenvolvidas para simular e demonstrar estratégias financeiras avançadas utilizando o produto Consórcio. A aplicação é composta por dois módulos principais: **Quita Smart** e **Invest Smart**.
 
