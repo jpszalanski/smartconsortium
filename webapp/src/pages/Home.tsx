@@ -17,16 +17,19 @@ export const Home: React.FC = () => {
 
     return (
         <div className="w-full flex flex-col items-center animate-fade-in">
-            <div className="text-center mb-12">
-                <h1 className="text-5xl md:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 mb-4 tracking-tight">
-                    Planejamento Consórcio
-                </h1>
-                <p className="text-slate-400 text-xl md:text-2xl font-light max-w-2xl mx-auto">
-                    Escolha a estratégia ideal para o seu futuro financeiro.
-                </p>
+            <div className="sticky top-0 z-40 w-full bg-slate-900/90 backdrop-blur-xl border-b border-white/5 py-8 mb-8">
+                <div className="text-center">
+                    <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 mb-2 tracking-tight">
+                        Planejamento Consórcio
+                    </h1>
+                    <p className="text-slate-400 text-sm md:text-lg font-light max-w-2xl mx-auto">
+                        Escolha a estratégia ideal para o seu futuro financeiro.
+                    </p>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl px-4 md:px-0 pb-20">
                 {/* Quita Smart */}
                 <Card
                     variant="interactive"

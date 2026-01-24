@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { type ReactNode } from 'react';
+import { BottomMenu } from './BottomMenu';
 
 interface LayoutProps {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
-        <div className="min-h-screen font-sans text-slate-200 bg-[#0f172a] bg-[radial-gradient(circle_at_50%_0%,#1e293b_0%,#0f172a_100%)] bg-fixed selection:bg-blue-500 selection:text-white">
-            <main className="w-full min-h-screen flex flex-col items-center p-4 md:p-6 lg:p-8">
-                {children}
+        <div className="min-h-screen flex flex-col pt-[env(safe-area-inset-top)] pb-[calc(4rem+env(safe-area-inset-bottom))]">
+            {/* Top Status Bar Spacer (optional background for status bar) */}
+            <div className="fixed top-0 left-0 right-0 h-[env(safe-area-inset-top)] bg-slate-900/90 z-50 backdrop-blur-sm pointer-events-none" />
 
-                <footer className="mt-12 text-slate-600 text-[10px] text-center max-w-2xl">
-                    <p>© {new Date().getFullYear()} Smart Consortium. Todos os direitos reservados.</p>
-                </footer>
+            {/* Main Content Area */}
+            <main className="flex-1 w-full flex flex-col items-center">
+                {children}
             </main>
+
+            {/* Bottom Navigation */}
+            <BottomMenu />
         </div>
     );
 };
