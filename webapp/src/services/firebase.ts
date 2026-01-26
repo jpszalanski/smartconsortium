@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics, logEvent as firebaseLogEvent, setUserId, setUserProperties } from 'firebase/analytics';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCt3TVevLusie6IcitHLQ8xZK7R1VUY288",
+    apiKey: {{secrets.FIREBASE_API_KEY}} ,
     authDomain: "simuladorconsortium.firebaseapp.com",
     projectId: "simuladorconsortium",
     storageBucket: "simuladorconsortium.firebasestorage.app",
