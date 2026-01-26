@@ -2,7 +2,9 @@ import { analytics, firebaseLogEvent, setUserId as firebaseSetUserId, setUserPro
 
 export const trackEvent = (eventName: string, params: any = {}) => {
     try {
-        firebaseLogEvent(analytics, eventName, params);
+        if (analytics) {
+            firebaseLogEvent(analytics, eventName, params);
+        }
         // Optional: Log to console in dev
         if (import.meta.env.DEV) {
             console.log(`[Analytics] ${eventName}`, params);
@@ -14,7 +16,9 @@ export const trackEvent = (eventName: string, params: any = {}) => {
 
 export const setUser = (userId: string) => {
     try {
-        firebaseSetUserId(analytics, userId);
+        if (analytics) {
+            firebaseSetUserId(analytics, userId);
+        }
         if (import.meta.env.DEV) {
             console.log(`[Analytics] Set User ID: ${userId}`);
         }
@@ -25,7 +29,9 @@ export const setUser = (userId: string) => {
 
 export const setUserProps = (properties: any) => {
     try {
-        firebaseSetUserProperties(analytics, properties);
+        if (analytics) {
+            firebaseSetUserProperties(analytics, properties);
+        }
         if (import.meta.env.DEV) {
             console.log(`[Analytics] Set User Properties:`, properties);
         }
