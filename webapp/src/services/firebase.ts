@@ -1,8 +1,16 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics, logEvent as firebaseLogEvent, setUserId, setUserProperties } from 'firebase/analytics';
+import type { Analytics } from 'firebase/analytics';
+
+// For Vite apps, environment variables must be prefixed with VITE_ and are available on import.meta.env
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY as string | undefined;
+
+if (!apiKey) {
+  throw new Error('VITE_FIREBASE_API_KEY is not defined. Add it to your .env file (and do not commit it).');
+}
 
 const firebaseConfig = {
-    apiKey: {{secrets.FIREBASE_API_KEY}} ,
+    apiKey,
     authDomain: "simuladorconsortium.firebaseapp.com",
     projectId: "simuladorconsortium",
     storageBucket: "simuladorconsortium.firebasestorage.app",
@@ -12,6 +20,17 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+let analytics: Analytics | undefined;
+try {
+  if (typeof window !== 'undefined') {
+    analytics = getAnalytics(app);
+  }
+} catch (e) {
+  // analytics may fail to initialize in non-browser environments or when disabled
+  // keep analytics undefined in that case
+  // eslint-disable-next-line no-console
+  console.warn('Firebase analytics not initialized:', e);
+}
 
 export { app, analytics, firebaseLogEvent, setUserId, setUserProperties };
