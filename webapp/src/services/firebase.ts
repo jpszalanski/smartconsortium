@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAnalytics, logEvent as firebaseLogEvent, setUserId, setUserProperties } from 'firebase/analytics';
 import type { Analytics } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 
 // For Vite apps, environment variables must be prefixed with VITE_ and are available on import.meta.env
 const apiKey = import.meta.env.VITE_FIREBASE_API_KEY as string | undefined;
@@ -10,13 +11,13 @@ if (!apiKey) {
 }
 
 const firebaseConfig = {
-    apiKey,
-    authDomain: "simuladorconsortium.firebaseapp.com",
-    projectId: "simuladorconsortium",
-    storageBucket: "simuladorconsortium.firebasestorage.app",
-    messagingSenderId: "229356390233",
-    appId: "1:229356390233:web:26645ae1eabebf143b6e48",
-    measurementId: "G-W1HJ2E3B9Y"
+  apiKey,
+  authDomain: "simuladorconsortium.firebaseapp.com",
+  projectId: "simuladorconsortium",
+  storageBucket: "simuladorconsortium.firebasestorage.app",
+  messagingSenderId: "229356390233",
+  appId: "1:229356390233:web:26645ae1eabebf143b6e48",
+  measurementId: "G-W1HJ2E3B9Y"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -33,4 +34,6 @@ try {
   console.warn('Firebase analytics not initialized:', e);
 }
 
-export { app, analytics, firebaseLogEvent, setUserId, setUserProperties };
+const auth = getAuth(app);
+
+export { app, analytics, auth, firebaseLogEvent, setUserId, setUserProperties };

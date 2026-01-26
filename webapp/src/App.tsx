@@ -4,6 +4,7 @@ import { ScrollToTop } from './components/ScrollToTop';
 import { Home } from './pages/Home';
 import { QuitaSmart } from './pages/QuitaSmart';
 import { InvestSmart } from './pages/InvestSmart';
+import { Login } from './pages/Login';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/quita-smart" element={<QuitaSmart />} />
           <Route path="/invest-smart" element={<InvestSmart />} />
         </Routes>
