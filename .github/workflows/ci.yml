@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: webapp/package-lock.json
+    - name: Install dependencies
+      run: npm ci
+      working-directory: webapp
+    - name: Build
+      run: npm run build
+      working-directory: webapp
+      env:
+        # We don't expose the real API key in CI, but the build might fail if it's missing.
+        # Providing a dummy value tailored for the build step if needed, or if the code handles undefined strictly.
+        # In our case, the code checks for it. Let's provide a dummy one for build purposes.
+        VITE_FIREBASE_API_KEY: "dummy-key-for-ci-build"
