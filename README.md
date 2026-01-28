@@ -1,48 +1,77 @@
 # Smart Consortium Calculators
 
-![Smart Consortium Cover](assets/cover.png)
+![Smart Consortium Cover](webapp/assets/cover.png)
 
 Este repositório contém um conjunto de ferramentas web desenvolvidas para simular e demonstrar estratégias financeiras avançadas utilizando o produto Consórcio. A aplicação é composta por dois módulos principais: **Quita Smart** e **Invest Smart**.
+
+A aplicação foi modernizada para **React (Vite)** e utiliza **Capacitor** para deploy nativo no iOS.
+
+| Plataforma | Status |
+| :--- | :--- |
+| **Web** | Deployed (Firebase) |
+| **iOS** | Native (Capacitor) |
 
 ## Módulos
 
 ### 1. Quita Smart 🏠
 O **Quita Smart** é uma calculadora destinada a comparar e projetar a quitação de financiamentos imobiliários utilizando cartas de consórcio.
-
-*   **Objetivo:** Demonstrar a economia gerada ao substituir os juros compostos de um financiamento imobiliário (SAC) pela taxa de administração fixa do consórcio.
-*   **Funcionalidades:**
-    *   Simulação para financiamentos **Novos** ou **Em Andamento** (calculando saldo devedor futuro).
-    *   Cálculo automático do valor da carta necessária (com projeção de INCC até a contemplação).
-    *   Comparativo "Lado a Lado": Fluxo de pagamento Financiamento vs. Consórcio.
-    *   Gráficos dinâmicos de Evolução do Saldo Devedor e Compromisso Mensal.
+*   **Comparativo "Lado a Lado":** Fluxo de pagamento Financiamento vs. Consórcio.
+*   **Gráficos dinâmicos:** Evolução do Saldo Devedor.
 
 ### 2. Invest Smart 📈
-O **Invest Smart** é um simulador de alavancagem financeira ("Consórcio Contemplado"), focado em comparar a rentabilidade do consórcio contra investimentos tradicionais.
-
-*   **Objetivo:** Evidenciar o **Fator de Alavancagem**, onde o rendimento no consórcio (via Fundo Master) incide sobre o valor integral da carta de crédito (capital do banco), enquanto investimentos tradicionais rendem apenas sobre o capital próprio acumulado.
-*   **Funcionalidades:**
-    *   Comparativo direto contra **CDB**, **Fundo DI** e **Poupança**.
-    *   Integração com API do Banco Central para obter taxas CDI e Poupança atuais.
-    *   Cálculo de Imposto de Renda regressivo automático.
-    *   Destaques visuais de "Ganho vs Benchmark" (ex: "35% maior que o CDB").
+O **Invest Smart** é um simulador de alavancagem financeira ("Consórcio Contemplado"), focado em comparar a rentabilidade do consórcio contra investimentos tradicionais (CDB, Poupança).
 
 ## Tecnologias Utilizadas
 
-*   **HTML5 & CSS3:** Estrutura e layout responsivo.
-*   **Tailwind CSS:** Estilização moderna com suporte a *Dark Mode* e componentes *Glassmorphism*.
-*   **Alpine.js:** Framework JavaScript leve para reatividade e manipulação de estado em tempo real.
-*   **Chart.js:** Renderização de gráficos interativos e comparativos.
-*   **API BCB:** Consumo de dados reais para taxas de mercado (SGS - Sistema Gerenciador de Séries Temporais).
+*   **Frontend:** React 19, Vite, TypeScript.
+*   **Estilização:** Tailwind CSS v4.
+*   **Mobile:** Capacitor v7 (iOS).
+*   **Backend/Hosting:** Firebase Hosting & Authentication.
+*   **Charts:** Chart.js + react-chartjs-2.
+
+## Estrutura do Projeto
+
+*   `webapp/`: Código fonte da aplicação React.
+*   `webapp/ios/`: Projeto nativo iOS (Xcode).
+*   `webapp/dist/`: Build de produção para web.
 
 ## Como Executar
 
-O projeto é uma aplicação *client-side* pura (apenas index.html).
+### Pré-requisitos
+*   Node.js 18+
+*   CocoaPods (para iOS)
 
-1.  Clone o repositório:
+### Instalação
+```bash
+cd webapp
+npm install
+```
+
+### Desenvolvimento Web
+```bash
+npm run dev
+```
+
+### Build e Deploy
+1.  **Build Web:**
     ```bash
-    git clone https://github.com/jpszalanski/smartconsortium.git
+    npm run build
     ```
-2.  Abra o arquivo `index.html` em qualquer navegador moderno.
+2.  **Sincronizar iOS:**
+    ```bash
+    npx cap sync ios
+    ```
+3.  **Deploy Firebase:**
+    ```bash
+    npx firebase deploy
+    ```
+
+### Compilar para iOS
+Abra o projeto no Xcode:
+```bash
+npx cap open ios
+```
+*   **Nota:** O projeto segue estritamente os padrões **iOS 26+**.
 
 ---
 
