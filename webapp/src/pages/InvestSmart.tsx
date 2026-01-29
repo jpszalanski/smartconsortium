@@ -130,8 +130,8 @@ export const InvestSmart: React.FC = () => {
 
     return (
         <div className="w-full max-w-[90rem] animate-fade-in">
-            {/* Sticky Header */}
-            <div className="sticky top-0 z-40 w-full bg-slate-900/90 backdrop-blur-xl border-b border-white/5 py-4 mb-4">
+            {/* Fixed Header */}
+            <div className="fixed top-[env(safe-area-inset-top)] left-0 right-0 z-40 w-full bg-slate-900/90 backdrop-blur-xl border-b border-white/5 py-4">
                 <div className="max-w-[90rem] mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-2">
                     <div className="text-center w-full">
                         <h1 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
@@ -141,6 +141,9 @@ export const InvestSmart: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Spacer for fixed header */}
+            <div className="h-[100px] w-full" />
 
             <div className="max-w-[90rem] mx-auto px-4 md:px-8 pb-20">
 

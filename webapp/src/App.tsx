@@ -9,6 +9,7 @@ import { UserProvider } from './context/UserContext';
 
 import { useState, useEffect } from 'react';
 import { Capacitor } from '@capacitor/core';
+import { SplashScreen } from '@capacitor/splash-screen';
 
 function App() {
   const [showSplash, setShowSplash] = useState(false);
@@ -16,6 +17,11 @@ function App() {
   useEffect(() => {
     if (Capacitor.isNativePlatform()) {
       setShowSplash(true);
+      // Hide native splash screen after a small delay to allow React splash to render
+      setTimeout(async () => {
+        await SplashScreen.hide();
+      }, 500);
+
       const timer = setTimeout(() => {
         setShowSplash(false);
       }, 3000);

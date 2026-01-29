@@ -17,7 +17,7 @@ export const Home: React.FC = () => {
 
     return (
         <div className="w-full flex flex-col items-center animate-fade-in">
-            <div className="sticky top-0 z-40 w-full bg-slate-900/90 backdrop-blur-xl border-b border-white/5 py-8 mb-8">
+            <div className="fixed top-[env(safe-area-inset-top)] left-0 right-0 z-40 w-full bg-slate-900/90 backdrop-blur-xl border-b border-white/5 py-8">
                 <div className="text-center">
                     <h1 className="text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 mb-2 tracking-tight">
                         Planejamento Consórcio
@@ -27,6 +27,9 @@ export const Home: React.FC = () => {
                     </p>
                 </div>
             </div>
+
+            {/* Spacer for fixed header */}
+            <div className="h-[140px] md:h-[160px] w-full" />
 
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl px-4 md:px-0 pb-20">
