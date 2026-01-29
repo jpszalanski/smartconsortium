@@ -1,6 +1,6 @@
 # Smart Consortium Calculators
 
-![Smart Consortium Cover](webapp/assets/cover.png)
+![Smart Consortium Cover](webapp/public/mobile-splash.jpg)
 
 Este repositório contém um conjunto de ferramentas web desenvolvidas para simular e demonstrar estratégias financeiras avançadas utilizando o produto Consórcio. A aplicação é composta por dois módulos principais: **Quita Smart** e **Invest Smart**.
 
