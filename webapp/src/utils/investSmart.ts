@@ -194,9 +194,9 @@ export const calculateInvestSmart = (input: InvestSmartInput): InvestSmartResult
 
     // --- 3. Benchmarks ---
     // Benchmark logic: Initial Invest = Cash Bid. Monthly Invest = Equivalent Pmt.
-    let flowDI = { balance: amountPaidInCashBid, principal: amountPaidInCashBid };
-    let flowCDB = { balance: amountPaidInCashBid, principal: amountPaidInCashBid };
-    let flowSavings = { balance: amountPaidInCashBid, principal: amountPaidInCashBid };
+    const flowDI = { balance: amountPaidInCashBid, principal: amountPaidInCashBid };
+    const flowCDB = { balance: amountPaidInCashBid, principal: amountPaidInCashBid };
+    const flowSavings = { balance: amountPaidInCashBid, principal: amountPaidInCashBid };
 
     // Derived Monthly Rates
     // DI: Base * Percent. Tax is calculated at end.

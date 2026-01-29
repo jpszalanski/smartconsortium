@@ -46,7 +46,7 @@ try {
 } catch (e) {
   // analytics may fail to initialize in non-browser environments or when disabled
   // keep analytics undefined in that case
-  // eslint-disable-next-line no-console
+   
   console.warn('Firebase analytics not initialized:', e);
 }
 
