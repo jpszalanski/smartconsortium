@@ -12,22 +12,24 @@ import { Capacitor } from '@capacitor/core';
 import { SplashScreen } from '@capacitor/splash-screen';
 
 function App() {
-  const [showSplash, setShowSplash] = useState(false);
+  const [showSplash, setShowSplash] = useState(() => Capacitor.isNativePlatform());
 
   useEffect(() => {
-    if (Capacitor.isNativePlatform()) {
-      setShowSplash(true);
+    if (showSplash) {
       // Hide native splash screen after a small delay to allow React splash to render
-      setTimeout(async () => {
+      // We use a small timeout to ensure the view is fully painted
+      const hideNative = async () => {
         await SplashScreen.hide();
-      }, 500);
+      };
+
+      setTimeout(hideNative, 500);
 
       const timer = setTimeout(() => {
         setShowSplash(false);
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [showSplash]);
 
   if (showSplash) {
     return (
