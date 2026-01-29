@@ -82,5 +82,6 @@ export const Home: React.FC = () => {
                 </Card>
             </div>
         </div>
+        </>
     );
 };
