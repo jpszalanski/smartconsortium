@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { useInvestSmart } from '../hooks/useInvestSmart';
+import { useUser } from '../context/UserContext';
+import { SimulationService } from '../services/database';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Card } from '../components/Card';
@@ -42,15 +44,56 @@ export const InvestSmart: React.FC = () => {
 
     const [showResults, setShowResults] = useState(false);
 
+    const { user } = useUser();
+
     useEffect(() => {
         trackEvent('view_screen', { screen_name: 'investsmart' });
     }, []);
 
-    const handleSimulate = () => {
+    const handleSimulate = async () => {
         trackEvent('calculate_investimento', {
             valor_carta: letterValue,
             prazo_cota: consortium.term
         });
+
+        if (user && result) {
+            try {
+                // Construct the input object again as it's not directly exposed by the hook in a single object
+                // We'll trust the hook's internal logic, but we need to reconstruct the input structure for saving
+                const inputToSave = {
+                    letterValue,
+                    consortium: {
+                        term: consortium.term,
+                        adminFeeTotal: consortium.adminFeeTotal,
+                        reserveFundTotal: consortium.reserveFundTotal,
+                        bidType: consortium.bidType,
+                        bidPercent: consortium.bidPercent
+                    },
+                    financialIndicators: {
+                        inccAnnual: indicators.inccAnnual,
+                        cdiAnnual: cdiBaseMonthly * 12,
+                        savingsMonthly: indicators.savingsMonthly
+                    },
+                    investmentRates: {
+                        masterFundMonthly: rates.masterFundMonthly,
+                        masterAdminFeeAnnual: rates.masterAdminFeeAnnual,
+                        diAdminFeeAnnual: rates.diAdminFeeAnnual,
+                        cdiPercent: rates.cdiPercent
+                    },
+                    contemplationMonth
+                };
+
+                await SimulationService.saveSimulation(user.uid, {
+                    type: 'invest_smart',
+                    input: inputToSave,
+                    results: result,
+                    title: `Investimento ${formatCurrency(letterValue)}`
+                });
+            } catch (error) {
+                console.error("Auto-save failed:", error);
+            }
+        }
+
         setShowResults(true);
     };
 

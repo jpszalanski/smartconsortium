@@ -10,11 +10,13 @@ export default defineConfig({
   ],
   build: {
     // Isso garante que não sobre nenhum arquivo externo
-    assetsInlineLimit: 100000000, 
+    assetsInlineLimit: 100000000,
     chunkSizeWarningLimit: 100000000,
     cssCodeSplit: false,
     rollupOptions: {
-      inlineDynamicImports: true,
+      output: {
+        inlineDynamicImports: true,
+      },
     },
   },
 })

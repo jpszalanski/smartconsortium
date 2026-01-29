@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import { useQuitaSmart } from '../hooks/useQuitaSmart';
+import { useUser } from '../context/UserContext';
+import { SimulationService } from '../services/database';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Card } from '../components/Card';
@@ -36,16 +38,32 @@ export const QuitaSmart: React.FC = () => {
     const { financing, consortium, updateFinancing, updateConsortium, result } = useQuitaSmart();
     const [showResults, setShowResults] = useState(false);
 
+    const { user } = useUser();
+
     useEffect(() => {
         trackEvent('view_screen', { screen_name: 'quitasmart' });
     }, []);
 
-    const handleSimulate = () => {
+    const handleSimulate = async () => {
         trackEvent('calculate_quitacao', {
             valor_financiado: financing.totalValue,
             prazo: financing.totalTerm,
             tipo: financing.type
         });
+
+        if (user && result) {
+            try {
+                await SimulationService.saveSimulation(user.uid, {
+                    type: 'quita_smart',
+                    input: { financing, consortium },
+                    results: result,
+                    title: `Quitação ${formatCurrency(financing.totalValue)}`
+                });
+            } catch (error) {
+                console.error("Auto-save failed:", error);
+            }
+        }
+
         setShowResults(true);
     };
 

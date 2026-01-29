@@ -11,8 +11,8 @@ let package = Package(
             targets: ["CapApp-SPM"])
     ],
     dependencies: [
-        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", exact: "7.4.5"),
-        .package(name: "CapacitorCommunityAppleSignIn", path: "../../../node_modules/@capacitor-community/apple-sign-in")
+        .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", exact: "8.0.2"),
+        .package(name: "CapacitorFirebaseAnalytics", path: "../../../node_modules/@capacitor-firebase/analytics")
     ],
     targets: [
         .target(
@@ -20,7 +20,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Capacitor", package: "capacitor-swift-pm"),
                 .product(name: "Cordova", package: "capacitor-swift-pm"),
-                .product(name: "CapacitorCommunityAppleSignIn", package: "CapacitorCommunityAppleSignIn")
+                .product(name: "CapacitorFirebaseAnalytics", package: "CapacitorFirebaseAnalytics")
             ]
         )
     ]

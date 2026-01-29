@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAnalytics, logEvent as firebaseLogEvent, setUserId, setUserProperties } from 'firebase/analytics';
 import type { Analytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
 // For Vite apps, environment variables must be prefixed with VITE_ and are available on import.meta.env
 const apiKey = import.meta.env.VITE_FIREBASE_API_KEY as string | undefined;
@@ -26,6 +27,21 @@ let analytics: Analytics | undefined;
 try {
   if (typeof window !== 'undefined') {
     analytics = getAnalytics(app);
+
+    // Enhanced User Properties
+    import('@capacitor/core').then(({ Capacitor }) => {
+      const platform = Capacitor.getPlatform(); // 'ios', 'android', 'web'
+      const isNative = Capacitor.isNativePlatform();
+
+      setUserProperties(analytics!, {
+        platform_type: isNative ? `${platform}_native` : 'web_browser',
+        platform_os: platform,
+        device_type: isNative ? 'mobile' : (window.innerWidth > 768 ? 'desktop' : 'mobile'),
+        screen_resolution: `${window.screen.width}x${window.screen.height}`,
+        system_language: navigator.language,
+        app_version: '1.0.0' // Align with package.json
+      });
+    }).catch(err => console.error('Failed to set analytics properties:', err));
   }
 } catch (e) {
   // analytics may fail to initialize in non-browser environments or when disabled
@@ -35,5 +51,6 @@ try {
 }
 
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-export { app, analytics, auth, firebaseLogEvent, setUserId, setUserProperties };
+export { app, analytics, auth, db, firebaseLogEvent, setUserId, setUserProperties };
