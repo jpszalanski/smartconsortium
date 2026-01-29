@@ -7,7 +7,34 @@ import { InvestSmart } from './pages/InvestSmart';
 import { Login } from './pages/Login';
 import { UserProvider } from './context/UserContext';
 
+import { useState, useEffect } from 'react';
+import { Capacitor } from '@capacitor/core';
+
 function App() {
+  const [showSplash, setShowSplash] = useState(false);
+
+  useEffect(() => {
+    if (Capacitor.isNativePlatform()) {
+      setShowSplash(true);
+      const timer = setTimeout(() => {
+        setShowSplash(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  if (showSplash) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+        <img
+          src="/mobile-splash.jpg"
+          alt="Splash Screen"
+          className="w-full h-full object-cover"
+        />
+      </div>
+    );
+  }
+
   return (
     <UserProvider>
       <Router>

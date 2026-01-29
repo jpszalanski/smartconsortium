@@ -5,7 +5,6 @@ const config: CapacitorConfig = {
   appName: 'Simulador Consórcio',
   webDir: 'dist',
   ios: {
-    minVersion: '16.0'
   }
 };
 
